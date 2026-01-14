@@ -1,0 +1,10 @@
+# Core data/ML packages used by notebooks
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+joblib
+
+# Jupyter kernel support (VS Code uses this; you do NOT need full JupyterLab)
+ipykernel
