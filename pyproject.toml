@@ -1,0 +1,27 @@
+[project]
+name = "taxipred"
+version = "0.1.0"
+description = "Taxi prediction fullstack lab (backend API + frontend)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+  "pydantic>=2.6",
+  "ipykernel>=6.29",
+  "pandas>=2.0",
+  "numpy>=1.26",
+  "scikit-learn>=1.4",
+  "matplotlib>=3.8",
+  "seaborn>=0.13",
+  "joblib>=1.3",
+  "streamlit>=1.31",
+  "requests>=2.31",
+]
+
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/taxipred"]
