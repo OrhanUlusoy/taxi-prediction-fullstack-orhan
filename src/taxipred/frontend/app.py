@@ -1,12 +1,9 @@
 """Streamlit-frontend för taxi-prisprognos.
 
-Syfte (för presentation):
+Syfte:
 - Användaren matar in features manuellt i UI:t
 - Frontend skickar en JSON-payload till FastAPI-backenden
 - Backenden returnerar en prediktion (Trip_Price) som vi visar i UI
-
-Kommentarstilen här följer EDA-notebooken: korta, svenska förklaringar om
-*vad* vi gör och *varför*.
 """
 
 from __future__ import annotations
@@ -39,7 +36,7 @@ with st.sidebar:
     st.write(api)
 
     try:
-        # Snabb kontroll att backenden är igång (bra för demo).
+        # Snabb kontroll att backenden är igång.
         health = requests.get(f"{api}/health", timeout=1.5)
         if health.ok:
             st.success("Backend nåbar (/health OK)")
@@ -86,7 +83,7 @@ if st.button("Prediktera"):
         predicted = resp.json()["predicted_price"]
         st.success(f"Predikterat pris: {predicted:.2f}")
     except Exception as exc:
-        # Samlad felhantering för demo (t.ex. fel URL, valideringsfel, serverfel)
+        # Samlad felhantering (t.ex. fel URL, valideringsfel, serverfel)
         st.error(f"Prediktion misslyckades: {exc}")
 
 st.divider()

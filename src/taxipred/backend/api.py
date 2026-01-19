@@ -2,7 +2,7 @@ from __future__ import annotations
 
 """FastAPI-backend för taxi-prisprognos.
 
-Översikt (för presentation):
+Översikt:
 - /health: enkel ping för att se att API:t lever
 - /data/sample: visar exempelrader från CSV (snabb sanity check)
 - /predict: tar emot en JSON med features och returnerar predikterat pris
@@ -62,7 +62,7 @@ def health() -> dict[str, str]:
 
 @app.get("/data/sample")
 def data_sample(n: int = 5) -> dict[str, Any]:
-    # Returnerar n exempelrader från CSV:n (bra för demo/validering).
+    # Returnerar n exempelrader från CSV:n (bra för validering).
     if n < 1 or n > 100:
         raise HTTPException(status_code=400, detail="n must be between 1 and 100")
     return {"rows": sample_rows(n)}
