@@ -1,4 +1,4 @@
-"""taxipred: Taxi Prediction (fullstack-demo).
+"""taxipred: Taxiprediktion (fullstack-demo).
 
 Paketstruktur (snabbt för presentation):
 - `taxipred.backend`: FastAPI som serverar prediktioner

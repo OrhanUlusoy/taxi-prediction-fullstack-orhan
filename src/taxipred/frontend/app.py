@@ -1,4 +1,4 @@
-"""Streamlit-frontend för Taxi Price Prediction.
+"""Streamlit-frontend för taxi-prisprognos.
 
 Syfte (för presentation):
 - Användaren matar in features manuellt i UI:t
@@ -19,22 +19,22 @@ import streamlit as st
 
 
 def _api_base() -> str:
-    # Hämtar API-bas-URL från miljövariabel (annars default lokalt).
+    # Hämtar API-bas-URL från miljövariabel (annars standard lokalt).
     return os.environ.get("TAXIPRED_API_BASE", "http://127.0.0.1:8000")
 
 
 # Grundkonfig för Streamlit-sidan
-st.set_page_config(page_title="Taxi Price Prediction", layout="centered")
-st.title("Taxi Price Prediction")
-st.caption("Frontend (Streamlit) that calls the FastAPI backend")
+st.set_page_config(page_title="Taxi-prisprognos", layout="centered")
+st.title("Taxi-prisprognos")
+st.caption("Frontend (Streamlit) som anropar FastAPI-backenden")
 
 with st.sidebar:
     # Sidopanel: här kan vi välja vilken backend vi pratar med
     st.subheader("API")
     api = st.text_input(
-        "API base URL",
+        "API-bas-URL",
         value=_api_base(),
-        help="Base URL to the FastAPI backend, e.g. http://127.0.0.1:8001",
+        help="Bas-URL till FastAPI-backenden, t.ex. http://127.0.0.1:8001",
     ).rstrip("/")
     st.write(api)
 
@@ -42,14 +42,14 @@ with st.sidebar:
         # Snabb kontroll att backenden är igång (bra för demo).
         health = requests.get(f"{api}/health", timeout=1.5)
         if health.ok:
-            st.success("Backend reachable (/health OK)")
+            st.success("Backend nåbar (/health OK)")
         else:
-            st.warning(f"Backend responded with {health.status_code}")
+            st.warning(f"Backend svarade med {health.status_code}")
     except Exception:
-        st.error("Backend NOT reachable (start API or fix URL/port)")
+        st.error("Backend INTE nåbar (starta API eller fixa URL/port)")
 
 # Input: samma feature-namn som modellen/backenden förväntar sig
-st.subheader("Input features")
+st.subheader("Input-features")
 
 trip_distance_km = st.number_input("Trip_Distance_km", min_value=0.0, value=10.0, step=0.1)
 passenger_count = st.number_input("Passenger_Count", min_value=1, value=2, step=1)
@@ -78,25 +78,25 @@ payload: dict[str, Any] = {
     "Weather_Clear": weather_clear,
 }
 
-if st.button("Predict"):
+if st.button("Prediktera"):
     try:
         # POST mot backenden: prediktion baserat på inskickade features
         resp = requests.post(f"{api}/predict", json=payload, timeout=10)
         resp.raise_for_status()
         predicted = resp.json()["predicted_price"]
-        st.success(f"Predicted price: {predicted:.2f}")
+        st.success(f"Predikterat pris: {predicted:.2f}")
     except Exception as exc:
         # Samlad felhantering för demo (t.ex. fel URL, valideringsfel, serverfel)
-        st.error(f"Prediction failed: {exc}")
+        st.error(f"Prediktion misslyckades: {exc}")
 
 st.divider()
 
-with st.expander("Try backend sample data"):
-    if st.button("Fetch /data/sample"):
+with st.expander("Testa backendens exempeldata"):
+    if st.button("Hämta /data/sample"):
         try:
             # Hjälpendpoint: visar några rader från datan för att verifiera att API:t funkar
             resp = requests.get(f"{api}/data/sample?n=5", timeout=10)
             resp.raise_for_status()
             st.json(resp.json())
         except Exception as exc:
-            st.error(f"Fetch failed: {exc}")
+            st.error(f"Hämtning misslyckades: {exc}")

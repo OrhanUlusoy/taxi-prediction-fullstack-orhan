@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""FastAPI-backend för Taxi Price Prediction.
+"""FastAPI-backend för taxi-prisprognos.
 
 Översikt (för presentation):
 - /health: enkel ping för att se att API:t lever

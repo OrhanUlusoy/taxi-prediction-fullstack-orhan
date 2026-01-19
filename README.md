@@ -1,38 +1,38 @@
-# Taxi Prediction (Fullstack Lab)
+# Taxiprediktion (Fullstack-labb)
 
-End-to-end lab project: train a taxi price model, export artifacts, serve predictions via a backend API, and consume the API from a simple frontend UI.
+Ett labbprojekt från början till slut: träna en modell för taxipris, exportera artifacts, servera prediktioner via ett backend-API och konsumera API:t från ett enkelt frontend-UI.
 
-## Architecture
+## Arkitektur
 
-- **Model development**: Jupyter notebook(s) under `src/taxipred/model_development/`
-- **Model artifacts**: exported to repo root
+- **Modellutveckling**: Jupyter-notebook(s) under `src/taxipred/model_development/`
+- **Modell-artifacts**: exporteras till repo-roten
   - `linear_regression_model.pkl`
   - `model_features.pkl`
 - **Backend (FastAPI)**: `src/taxipred/backend/api.py`
 - **Frontend (Streamlit)**: `src/taxipred/frontend/app.py`
 
-## Setup (recommended: uv)
+## Installation (rekommenderat: uv)
 
-From the repo root:
+Från repo-roten:
 
-- Install dependencies + create/refresh `.venv`:
+- Installera beroenden + skapa/uppdatera `.venv`:
   - `uv sync`
 
-Notes:
-- This repo contains `requirements.txt`, but the primary workflow here is `uv` (via `pyproject.toml` + `uv.lock`).
-- In VS Code notebooks, choose the kernel that points to `taxi-prediction-fullstack-orhan\.venv\Scripts\python.exe`.
+Noteringar:
+- Detta repo innehåller `requirements.txt`, men primär workflow här är `uv` (via `pyproject.toml` + `uv.lock`).
+- I VS Code-notebooks: välj kernel som pekar på `taxi-prediction-fullstack-orhan\.venv\Scripts\python.exe`.
 
-## Run backend (FastAPI)
+## Kör backend (FastAPI)
 
-- Start API (Windows-friendly):
+- Starta API (Windows-vänligt):
   - `.\.venv\Scripts\python.exe -m uvicorn taxipred.backend.api:app --app-dir src --host 127.0.0.1 --port 8001`
 
-Endpoints:
+Endpunkter:
 - `GET /health` → `{ "status": "ok" }`
-- `GET /data/sample?n=5` → returns a few rows from the CSV
-- `POST /predict` → returns `{ "predicted_price": <float> }`
+- `GET /data/sample?n=5` → returnerar några rader från CSV:n
+- `POST /predict` → returnerar `{ "predicted_price": <float> }`
 
-Example request:
+Exempelanrop:
 
 ```bash
 curl -X POST http://127.0.0.1:8001/predict \
@@ -51,43 +51,43 @@ curl -X POST http://127.0.0.1:8001/predict \
   }'
 ```
 
-## Run frontend (Streamlit)
+## Kör frontend (Streamlit)
 
-Start the UI:
+Starta UI:t:
 
 ```bash
 .\.venv\Scripts\python.exe -m streamlit run src/taxipred/frontend/app.py
 ```
 
-The frontend calls the backend at `http://127.0.0.1:8000` by default.
-If you want to point it somewhere else:
+Frontend anropar backenden på `http://127.0.0.1:8000` som standard.
+Om du vill peka den någon annanstans:
 
 ```bash
 set TAXIPRED_API_BASE=http://127.0.0.1:8001
 .\.venv\Scripts\python.exe -m streamlit run src/taxipred/frontend/app.py
 ```
 
-## Run notebooks
+## Kör notebooks
 
-- Open `src/taxipred/model_development/01_eda.ipynb`
-- Select the kernel from `.venv`
+- Öppna `src/taxipred/model_development/01_eda.ipynb`
+- Välj kernel från `.venv`
 
-If you ever get `ModuleNotFoundError`, it usually means the notebook is using the wrong interpreter.
+Om du får `ModuleNotFoundError` betyder det oftast att notebooken använder fel interpreter.
 
 
-### Backend running
+### Backend igång
 
-![Backend running in terminal (Uvicorn on http://127.0.0.1:8001)](docs/screenshots/image-3.png)
+![Backend igång i terminal (Uvicorn på http://127.0.0.1:8001)](docs/screenshots/image-3.png)
 
-Note: `GET /favicon.ico 404` in the terminal is normal (browser requesting an icon).
+Notering: `GET /favicon.ico 404` i terminalen är normalt (webbläsaren ber om en ikon).
 
-### Backend health
+### Backend-status
 
-![Health check in browser: GET /health returns {"status":"ok"}](docs/screenshots/image-1.png)
+![Hälsokontroll i webbläsare: GET /health returnerar {"status":"ok"}](docs/screenshots/image-1.png)
 
-### Frontend Running
-![Streamlit started (Local URL http://localhost:8501)](docs/screenshots/image-2.png)
+### Frontend igång
+![Streamlit startad (Lokal URL http://localhost:8501)](docs/screenshots/image-2.png)
 
-### Frontend prediction
+### Frontend-prediktion
 
-![Streamlit UI: backend reachable and a successful prediction](docs/screenshots/image.png)
+![Streamlit UI: backend nåbar och en lyckad prediktion](docs/screenshots/image.png)
