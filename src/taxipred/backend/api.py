@@ -33,7 +33,7 @@ def _load_artifacts() -> tuple[Any, list[str]]:
     model_path = root / "linear_regression_model.pkl"
     features_path = root / "model_features.pkl"
 
-    if not model_path.exists():
+    if not model_path.exists(): 
         raise FileNotFoundError(f"Missing model artifact: {model_path}")
     if not features_path.exists():
         raise FileNotFoundError(f"Missing feature list artifact: {features_path}")

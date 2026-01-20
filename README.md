@@ -72,6 +72,8 @@ set TAXIPRED_API_BASE=http://127.0.0.1:8001
 - Öppna `src/taxipred/model_development/01_eda.ipynb`
 - Välj kernel från `.venv`
 
+Notebooken innehåller även en kort **modelljämförelse** (t.ex. LinearRegression, RandomForestRegressor, GradientBoostingRegressor) med MAE/RMSE/R² på samma train/test-split.
+
 Om du får `ModuleNotFoundError` betyder det oftast att notebooken använder fel interpreter.
 
 

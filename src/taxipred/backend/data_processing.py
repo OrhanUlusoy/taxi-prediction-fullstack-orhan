@@ -19,7 +19,7 @@ def repo_root() -> Path:
     # .../src/taxipred/backend/data_processing.py -> repo root är parents[3]
     return Path(__file__).resolve().parents[3]
 
-
+# sanity check
 def load_raw_data(csv_path: Path | None = None) -> pd.DataFrame:
     # Standard: läs projektets CSV i src/taxipred/data
     if csv_path is None:
